@@ -1,29 +1,22 @@
+import 'package:coffee_app_flutter/presentation/providers/coffee_provider.dart';
+import 'package:coffee_app_flutter/presentation/screens/details_coffee/deTails_screen_coffee.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:provider/provider.dart';
 import '../../widgets/widgets.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
+  static const String name = 'home_screen';
   const HomeScreen({
     super.key,
   });
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
-    late TabController _tabController;
-    @override
-  void initState() {
-    // TODO: implement initState
-    _tabController  = TabController(length: 10, vsync: this);
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
+    final coffee = context.watch<CoffeeProvider>();
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50), child: _AppBarHomeScreen()),
+      appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(50), child: AppBarHomeScreen()),
       body: SafeArea(
         child: ContainerPadding(
           child: Column(
@@ -31,18 +24,49 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               const TextSearchCoffee(),
               _TextTabView(
                 titleTabs: 'Categories',
+                onTap: coffee.addCoffeeData,
+              ),
+              const RowTabs(),
+              SizedBox(
+                  height: 300,
+                  child: StreamBuilder(
+                    initialData: coffee.listData,
+                    builder: (context, snapshot) {
+                      final dataCoffee = snapshot.data;
+                      if (dataCoffee!.isNotEmpty) {
+                        return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: dataCoffee.length,
+                            itemBuilder: (context, index) {
+                              final coffe = dataCoffee[index];
+                              return CardCoffee(
+                                name: coffe.name,
+                                category: coffe.category,
+                                price: coffe.price,
+                                imgUrl: coffe.imgUrl,
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return DetailsScreenCoffee(
+                                            nameProduct: coffe.name,
+                                            category: coffe.category,
+                                            price:coffe.price,
+                                            imgUrl: coffe.imgUrl,
+                                            description: coffe.description,
+                                          );
+                                      }));
+                                },
+                              );
+                            });
+                      }
+                      return Center(child: const CircularProgressIndicator());
+                    },
+                  )),
+              _TextTabView(
+                titleTabs: 'Special offer',
                 onTap: () {},
               ),
-              Container(
-                height: 60,
-                child: TabBar(
-                  indicatorWeight: 0.1,
-                  indicatorColor: Colors.transparent,
-                  dividerColor: Colors.transparent,
-                  controller:_tabController,
-                  isScrollable: true,
-                  tabs: List.generate(10, (index) => ButtonTab(text: '$index')))
-                )
             ],
           ),
         ),
@@ -61,21 +85,17 @@ class _TextTabView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(titleTabs,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16
-        ),
-        ),
+        TextInformationDescription(text: titleTabs),
         ButtonAllTabs(onTap: onTap)
       ],
     );
   }
 }
 
-class _AppBarHomeScreen extends StatelessWidget {
-  const _AppBarHomeScreen({
+class AppBarHomeScreen extends StatelessWidget {
+  const AppBarHomeScreen({
     super.key,
+
   });
 
   @override

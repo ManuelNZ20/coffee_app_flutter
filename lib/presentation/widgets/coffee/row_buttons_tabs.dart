@@ -31,6 +31,8 @@ class _RowTabsState extends State<RowTabs> with SingleTickerProviderStateMixin {
             indicatorColor: Colors.transparent,
             dividerColor: Colors.transparent,
             controller: _tabController,
+            labelColor: Colors.yellow.shade700,
+            unselectedLabelColor: Colors.grey,
             isScrollable: true,
             tabs: List.generate(
                 categoriesCoffee.length,

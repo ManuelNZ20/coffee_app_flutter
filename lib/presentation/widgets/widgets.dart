@@ -1,8 +1,8 @@
 //references widgets
 //shared
-
+export 'package:coffee_app_flutter/presentation/widgets/shared/text_title_home.dart';
+export 'package:coffee_app_flutter/presentation/widgets/shared/button_size_option.dart';
 export 'package:coffee_app_flutter/presentation/widgets/shared/text_information_description.dart';
-
 export 'package:coffee_app_flutter/presentation/widgets/shared/button_all_tabs.dart';
 export 'package:coffee_app_flutter/presentation/widgets/shared/container_padding.dart';
 export 'package:coffee_app_flutter/presentation/widgets/shared/text_information.dart';

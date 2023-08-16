@@ -1,12 +1,13 @@
 import 'package:coffee_app_flutter/config/helpers/functions/formatter_number.dart';
+import 'package:coffee_app_flutter/domain/entities/coffee.dart';
+import 'package:coffee_app_flutter/presentation/providers/coffee_favorite_provider.dart';
 import 'package:coffee_app_flutter/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class DetailsScreenCoffee extends StatelessWidget {
   static const String name = 'details_screen';
-
   final String category;
   final String nameProduct;
   final double price;
@@ -32,7 +33,12 @@ class DetailsScreenCoffee extends StatelessWidget {
                 height: size.height * .6,
                 color: const Color(0xFFf0e2c8),
                 child: ContainerPadding(
-                    child: _AppBarImage(size: size, imgUrl: imgUrl))),
+                    child: _AppBarImage(
+                        size: size,
+                        imgUrl: imgUrl,
+                        name: nameProduct,
+                        description: description,
+                        price: price))),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -92,33 +98,63 @@ class _ContainerInformationCoffee extends StatelessWidget {
                 SizedBox(
                   width: size.width * .65,
                   child: Row(
-                    children: List.generate(
-                        5,
-                        (index) => IconButton(
+                    children: List.generate(5, (index) {
+                      if (index < 4) {
+                        return IconButton(
                             onPressed: () {},
-                            icon: const Icon(Icons.coffee_outlined))),
+                            icon: const Icon(Icons.coffee_rounded));
+                      }
+                      return IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.coffee_outlined));
+                    }),
                   ),
                 ),
                 TextPriceCoffee(price: price)
               ],
             ),
-            Container(
+            const SizedBox(height: 10),
+            SizedBox(
               width: size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextInformationDescription(
+                  const TextInformationDescription(
                     text: 'Description',
                   ),
-                  // WidgetSpan(child:),
-                  Container(
-                    color: Colors.red,
+                  const SizedBox(height: 20),
+                  SizedBox(
                     height: size.height * .1,
                     child: Text(
                       description,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
+                  ),
+                  const TextInformationDescription(
+                    text: 'Size Options',
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ButtonSizeOption(
+                        sizeText: 'S',
+                        onPressed: () {},
+                      ),
+                      ButtonSizeOption(
+                        sizeText: 'M',
+                        onPressed: () {},
+                      ),
+                      ButtonSizeOption(
+                        sizeText: 'L',
+                        onPressed: () {},
+                      ),
+                      ButtonSizeOption(
+                        sizeText: 'XL',
+                        onPressed: () {},
+                      ),
+                    ],
                   )
                 ],
               ),
@@ -135,13 +171,26 @@ class _AppBarImage extends StatelessWidget {
     super.key,
     required this.size,
     required this.imgUrl,
+    required this.name,
+    required this.description,
+    required this.price,
   });
 
   final Size size;
+  final String name;
+  final String description;
+  final double price;
   final String imgUrl;
 
   @override
   Widget build(BuildContext context) {
+    final coffeeFavorite = context.watch<CoffeeFavoriteProvider>();
+    IconData iconData = Icons.favorite_outline;
+    if(coffeeFavorite.coffeeFavorites.contains(name)) {
+      iconData = Icons.favorite_rounded;
+    }else {
+      iconData = Icons.favorite_outline;
+    }
     return Column(
       children: [
         SafeArea(
@@ -153,7 +202,11 @@ class _AppBarImage extends StatelessWidget {
                 },
                 icon: const Icon(Icons.arrow_back_ios_rounded)),
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.favorite_border)),
+                onPressed: () {
+                  coffeeFavorite.addFavorite(name);
+                  print('${coffeeFavorite.coffeeFavorites.length}');
+                },
+                icon: Icon(iconData)),
           ]),
         ),
         Image.asset(

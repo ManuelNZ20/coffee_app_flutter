@@ -4,9 +4,9 @@ import 'package:coffee_app_flutter/insfrastructure/datasources/coffee_datasource
 import 'package:coffee_app_flutter/insfrastructure/repositories/coffee_repository_impl.dart';
 import 'package:coffee_app_flutter/presentation/providers/coffee_favorite_provider.dart';
 import 'package:coffee_app_flutter/presentation/providers/coffee_provider.dart';
+import 'package:coffee_app_flutter/presentation/providers/toggle_color_button_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'presentation/screens/screens.dart';
 
 void main() {
   runApp(const MainApp());
@@ -24,7 +24,8 @@ class MainApp extends StatelessWidget {
           create: (_) =>
               CoffeeProvider(coffeeRepositoryImpl: coffeeRepositoryImpl)
                 ..addCoffeeData()),
-      ChangeNotifierProvider(create: (_) => CoffeeFavoriteProvider())
+      ChangeNotifierProvider(create: (_) => CoffeeFavoriteProvider()),
+      ChangeNotifierProvider(create: (_)=>ToggleButtonTabBar())
     ], child: const MaterialAppTheme());
   }
 }

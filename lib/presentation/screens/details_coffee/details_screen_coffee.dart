@@ -266,6 +266,7 @@ class _DetailsBottomNavigationBar extends StatelessWidget {
               text: 'Add to Order',
               onPressed: () {},
               elevation: 1,
+              selected: true,
             )
           ],
         ),

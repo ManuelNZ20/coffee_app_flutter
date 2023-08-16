@@ -20,8 +20,8 @@ class CoffeeProvider extends ChangeNotifier {
     final dataComplete =
         await coffeeRepositoryImpl.getDataCoffeeByCategory(category);
     listData.addAll(dataComplete);
-    print('object');
-    print(listData.length);
     notifyListeners();
   }
+
+
 }

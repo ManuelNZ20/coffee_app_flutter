@@ -25,7 +25,8 @@ class HomeView extends StatelessWidget {
             titleTabs: 'Categories',
             onTap: coffee.addCoffeeData,
           ),
-          const RowTabs(),
+          RowTabs(
+          ),
           Material(
             color: Colors.white,
             child: SizedBox(
@@ -60,7 +61,7 @@ class HomeView extends StatelessWidget {
                             );
                           });
                     }
-                    return Center(child: const CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   },
                 )),
           ),

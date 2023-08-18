@@ -1,7 +1,4 @@
-import 'package:coffee_app_flutter/presentation/providers/coffee_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../widgets/widgets.dart';
 
 class HomeView extends StatelessWidget {
@@ -10,38 +7,32 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final coffee = context.watch<CoffeeProvider>();
-    return SafeArea(
-      child: Column(
-        children: [
-          AppBarHomeScreen(
-            size: size,
-            onPressedMenu: () {},
-            onPressedShopping: () {},
-          ),
-          const TextSearchCoffee(),
-          _TextTabView(
-            titleTabs: 'Categories',
-            onTap: coffee.addCoffeeData,
-          ),
-          const RowTabs(),
-          Material(
-            color: Colors.white,
-            child: SizedBox(
-                height: size.height * .352,
-                child: const ContainerCardCoffee()),
-          ),
-          _TextTabView(
-            titleTabs: 'Special offer',
-            onTap: () {},
-          ),
-          SizedBox(
-            width: size.width,
-            height: size.height * .25,
-            child: ContainerCardCoffeeSpecial(),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        AppBarHomeScreen(
+          size: size,
+          onPressedMenu: () {},
+          onPressedShopping: () {},
+        ),
+        const TextSearchCoffee(),
+        _TextTabView(
+          titleTabs: 'Categories',
+          onTap: (){},
+        ),
+        const RowTabs(),
+        Material(
+          color: Colors.white,
+          child: SizedBox(
+              height: size.height * .352, child: const ContainerCardCoffee()),
+        ),
+        _TextTabView(
+          titleTabs: 'Special offer',
+          onTap: () {},
+        ),
+        const Expanded(
+          child: ContainerCardCoffeeSpecial(),
+        )
+      ],
     );
   }
 }
@@ -56,7 +47,7 @@ class _TextTabView extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Material(
       color: Colors.white,
-      child: Container(
+      child: SizedBox(
         width: size.width,
         height: size.height * .054,
         child: Row(
@@ -89,7 +80,7 @@ class AppBarHomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(onPressed: onPressedMenu, icon: Icon(Icons.menu_rounded)),
+          IconButton(onPressed: onPressedMenu, icon: const Icon(Icons.menu_rounded)),
           SizedBox(
             width: 150,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -97,14 +88,14 @@ class AppBarHomeScreen extends StatelessWidget {
                 text: 'Coffee',
                 colorText: Colors.yellow.shade700,
               ),
-              TextTitle(
+              const TextTitle(
                 text: 'Take',
               ),
             ]),
           ),
           IconButton(
               onPressed: onPressedShopping,
-              icon: Icon(Icons.shopping_bag_outlined)),
+              icon: const Icon(Icons.shopping_bag_outlined)),
         ],
       ),
     );

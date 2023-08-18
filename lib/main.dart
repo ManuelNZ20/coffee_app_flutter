@@ -1,3 +1,4 @@
+import 'package:coffee_app_flutter/config/helpers/blocs/theme_blocs.dart';
 import 'package:coffee_app_flutter/config/helpers/router/app_router.dart';
 import 'package:coffee_app_flutter/config/theme/app_theme.dart';
 import 'package:coffee_app_flutter/insfrastructure/datasources/coffee_datasource_impl.dart';
@@ -8,6 +9,7 @@ import 'package:coffee_app_flutter/presentation/providers/coffee_favorite_provid
 import 'package:coffee_app_flutter/presentation/providers/coffee_provider.dart';
 import 'package:coffee_app_flutter/presentation/providers/coffee_special_provider.dart';
 import 'package:coffee_app_flutter/presentation/providers/toggle_color_button_bar.dart';
+import 'package:coffee_app_flutter/presentation/shared/data/coffee_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,12 +29,12 @@ class MainApp extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider(
           create: (_) =>
-              CoffeeProvider(coffeeRepositoryImpl: coffeeRepositoryImpl)
-                ..addCoffeeData()),
+              CoffeeProvider(coffeeRepositoryImpl: coffeeRepositoryImpl)..addCoffeeData()..addCoffeeDataByCategory(categoriesCoffee[0])),
       ChangeNotifierProvider(create: (_) => CoffeeFavoriteProvider()),
       ChangeNotifierProvider(create: (_)=>ToggleButtonTabBar(),
       ),
-      ChangeNotifierProvider(create: (_)=> CoffeeSpecialProvider(coffeeSpecialRepository: coffeeSpecialRepositoryImpl)..addDataCoffee())
+      ChangeNotifierProvider(create: (_)=> CoffeeSpecialProvider(coffeeSpecialRepository: coffeeSpecialRepositoryImpl)..addDataCoffee(),
+      ),
     ], child: const MaterialAppTheme());
   }
 }
@@ -46,7 +48,7 @@ class MaterialAppTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme().themeData(),
+      theme:AppTheme().themeData(),
       routerConfig: appRouter,
     );
   }

@@ -4,6 +4,9 @@ class AppTheme  {
 
   ThemeData themeData() => ThemeData(
     useMaterial3: true,
-    colorSchemeSeed: Colors.deepOrange.shade300
+    colorSchemeSeed: Colors.deepOrange.shade300,
+    appBarTheme: AppBarTheme(
+      centerTitle: true
+    ),
   );
 }

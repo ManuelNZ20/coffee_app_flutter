@@ -15,12 +15,21 @@ class ContainerCardCoffeeSpecial extends StatelessWidget {
         itemCount: coffeeSpecial.data.length,
         itemBuilder: (context, index) {
           final coffeeSp = coffeeSpecial.data[index];
-          return CardCoffeeSpecial(
+          final cardCoffeeSpecial = CardCoffeeSpecial(
               name: coffeeSp.name,
               description: coffeeSp.description,
               price: coffeeSp.price,
               volume: coffeeSp.volume,
               imgUrl: coffeeSp.imgUrl);
+          if (index == coffeeSpecial.data.length - 1) {
+            return Column(
+            children: [
+              cardCoffeeSpecial,
+              SizedBox(height: MediaQuery.of(context).size.height*.07,),
+            ],
+          );
+          }
+          return cardCoffeeSpecial;
         });
   }
 }

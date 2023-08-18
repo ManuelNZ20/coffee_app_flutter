@@ -1,4 +1,4 @@
-import 'package:coffee_app_flutter/presentation/widgets/shared/container_padding.dart';
+import 'package:coffee_app_flutter/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class CardCoffeeSpecial extends StatelessWidget {
@@ -19,34 +19,50 @@ class CardCoffeeSpecial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 10
-      ),
-      child: Card(
-        clipBehavior: Clip.hardEdge,
-        elevation: 3.5,
-        margin: EdgeInsets.zero,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 18,horizontal: 14
-          ),
-          decoration: const BoxDecoration(
-            color: Colors.white
-          ),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Image.asset(
-                  imgUrl,
-                  width: size.width*.42,
-                  height: size.height*.16,
-                  fit: BoxFit.cover,
-                ),
-              )
-            ],
-          ),
+    return ContainerCardStyle(
+      width: size.width,
+      height: size.height * .2,
+      borderRadius: 10,
+      paddingH: 6,
+      paddingV: 10,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Image.asset(
+                imgUrl,
+                width: size.width * .38,
+                height: size.height * .14,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name),
+                SizedBox(
+                    width: size.width * .36,
+                    child: Text(
+                      description,
+                      textAlign: TextAlign.justify,
+                      maxLines: 3,
+                    )),
+                Text('$price'),
+                Row(
+                  children: List.generate(
+                      volume.toInt(),
+                      (index) => Icon(
+                            Icons.coffee,
+                            size: size.width * .06,
+                          )),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

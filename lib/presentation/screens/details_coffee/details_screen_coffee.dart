@@ -1,5 +1,4 @@
 import 'package:coffee_app_flutter/config/helpers/functions/formatter_number.dart';
-import 'package:coffee_app_flutter/domain/entities/coffee.dart';
 import 'package:coffee_app_flutter/presentation/providers/coffee_favorite_provider.dart';
 import 'package:coffee_app_flutter/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';

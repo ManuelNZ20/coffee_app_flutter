@@ -18,7 +18,6 @@ class ButtonTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('text: $text seleccion: $selected');
     return Opacity(
       opacity: selected ? 1 : .5,
       child: InkWell(

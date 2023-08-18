@@ -1,7 +1,6 @@
 import 'package:coffee_app_flutter/presentation/providers/coffee_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../screens/screens.dart';
 import '../widgets.dart';
 
@@ -16,7 +15,7 @@ class ContainerCardCoffee extends StatelessWidget {
   Widget build(BuildContext context) {
     final coffee = context.watch<CoffeeProvider>();
     return StreamBuilder(
-      initialData: coffee.listData,
+      initialData: coffee.listDataCategory,
       builder: (context, snapshot) {
         final dataCoffee = snapshot.data;
         if (dataCoffee!.isNotEmpty) {

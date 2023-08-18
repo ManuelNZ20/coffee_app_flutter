@@ -31,7 +31,7 @@ class ButtonSizeOption extends StatelessWidget {
                 bottom: 13,
                 child: Text(
                   sizeText,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
                   ),

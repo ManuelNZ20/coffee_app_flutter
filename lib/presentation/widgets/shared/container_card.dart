@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
 class ContainerCardStyle extends StatelessWidget {
-  final Widget widget;
+  final Widget child;
   final double width;
   final double height;
-  const ContainerCardStyle({super.key,required this.widget, required this.width, required this.height});
+  final double borderRadius;
+  final double paddingH;
+  final double paddingV;
+  const ContainerCardStyle({super.key,required this.child, required this.width, required this.height, required this.borderRadius, required this.paddingH, required this.paddingV});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+      margin: EdgeInsets.symmetric(horizontal: paddingH, vertical: paddingV),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(borderRadius),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -20,9 +23,9 @@ class ContainerCardStyle extends StatelessWidget {
                 blurRadius: 10,
                 color: Colors.grey.shade300)
           ]),
-      width: width * .48,
-      height: height * .3,
-      child: widget
+      width: width,
+      height: height,
+      child: child
     );
   }
 }

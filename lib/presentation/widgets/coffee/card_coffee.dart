@@ -1,7 +1,5 @@
 import 'dart:math' show Random;
-import 'package:coffee_app_flutter/presentation/widgets/coffee/button_add_shopping.dart';
 import 'package:flutter/material.dart';
-
 import '../widgets.dart';
 
 class CardCoffee extends StatelessWidget {
@@ -11,32 +9,22 @@ class CardCoffee extends StatelessWidget {
   final String imgUrl;
   final VoidCallback onPressed;
   const CardCoffee(
-      {
-      super.key,
+      {super.key,
       required this.name,
       required this.category,
       required this.price,
       required this.imgUrl,
-      required this.onPressed
-      });
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 2),
-                blurRadius: 10,
-                color: Colors.grey.shade300)
-          ]),
+    return ContainerCardStyle(
       width: size.width * .48,
       height: size.height * .3,
+      borderRadius: 6,
+      paddingH: 8,
+      paddingV: 12,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -78,8 +66,6 @@ class CardCoffee extends StatelessWidget {
     );
   }
 }
-
-
 
 class _TagsButton extends StatelessWidget {
   const _TagsButton();

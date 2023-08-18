@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class CoffeeProvider extends ChangeNotifier {
   final CoffeeRepositoryImpl coffeeRepositoryImpl;
   final List<Coffee> listData = [];
+  final List<Coffee> listDataCategory = [];
 
   CoffeeProvider({required this.coffeeRepositoryImpl});
 
@@ -16,10 +17,10 @@ class CoffeeProvider extends ChangeNotifier {
   }
 
   Future<void> addCoffeeDataByCategory(String category) async {
-    listData.clear();
+    listDataCategory.clear();
     final dataComplete =
         await coffeeRepositoryImpl.getDataCoffeeByCategory(category);
-    listData.addAll(dataComplete);
+    listDataCategory.addAll(dataComplete);
     notifyListeners();
   }
 

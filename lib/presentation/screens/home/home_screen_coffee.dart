@@ -19,33 +19,44 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final screens = [
-      const HomeView(),
+      const ContainerPadding(child: HomeView()),
       const FavoriteView(),
-      const WidgetsView(),
+      WidgetsView(),
       const PersonView()
     ];
     return Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      body: ContainerPadding(
-        child: IndexedStack(
-          index: currentIndex,
-          children: screens,
-        ),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.transparent,
-        buttonBackgroundColor: Colors.yellow.shade700,
-        height: 48,
-        index: currentIndex,
-        items: const [
-          Icon(Icons.home_filled),
-          Icon(Icons.favorite_outline_rounded),
-          Icon(Icons.grid_view_outlined),
-          Icon(Icons.person_outline_rounded),
-        ],
-        onTap: (index) => setState(() => currentIndex = index),
-      ),
-    );
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              // body - information coffee
+              Align(
+                alignment: Alignment.topCenter,
+                child: IndexedStack(
+                  index: currentIndex,
+                  children: screens,
+                ),
+              ),
+              // bottomNavigatorBar - NavigatorBar
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: CurvedNavigationBar(
+                  backgroundColor: Colors.transparent,
+                  buttonBackgroundColor: Colors.yellow.shade700,
+                  height: 55,
+                  index: currentIndex,
+                  items: const [
+                    Icon(Icons.home_filled),
+                    Icon(Icons.favorite_outline_rounded),
+                    Icon(Icons.grid_view_outlined),
+                    Icon(Icons.person_outline_rounded),
+                  ],
+                  onTap: (index) => setState(() => currentIndex = index),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
